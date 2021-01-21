@@ -4,9 +4,9 @@ name: buildah
 
 steps:
   - name: build
-    image: quay.io/containers/buildah
-    privileged: true
+    image: alpine:latest
     commands:
+      - apk update && apk add buildah
       - export MYTAG="mytag"
       - export container=$(buildah from docker.io/alpine:latest)
       - buildah run "$container" -- apk update
