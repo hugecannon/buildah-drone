@@ -5,6 +5,7 @@ name: buildah
 steps:
   - name: build
     image: alpine:3.13
+    privileged: true
     commands:
       - sed -i 's/v3\.13/edge/g' /etc/apk/repositories
       - echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
