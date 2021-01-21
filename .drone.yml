@@ -4,9 +4,12 @@ name: buildah
 
 steps:
   - name: build
-    image: alpine:latest
+    image: alpine:3.13
     commands:
-      - apk update && apk add buildah
+      - sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories
+      - echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+      - apk upgrade --update-cache --available
+      - apk add buildah
       - export MYTAG="mytag"
       - export container=$(buildah from docker.io/alpine:latest)
       - buildah run "$container" -- apk update
