@@ -8,8 +8,9 @@ steps:
     privileged: true
     commands:
       - export MYTAG="mytag"
-      - export container=$(buildah from docker.io/python:3.6-slim)
-      - buildah run "$container" -- apt-get update
-      - buildah run "$container" -- apt-get install -y build-essential git
+      - export container=$(buildah from docker.io/alpine:latest)
+      - buildah run "$container" -- apk update
+      - buildah run "$container" -- apk add git
+      - buildah run "$container" -- apk add go
       - buildah commit --format docker "$container" "$MYTAG"
       - buildah push "$MYTAG"
