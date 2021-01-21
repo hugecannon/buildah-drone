@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: buildah
+
+steps:
+  - name: build
+    image: quay.io/containers/buildah
+    privileged: true
+    commands:
+      - export MYTAG="mytag"
+      - export container=$(buildah from docker.io/python:3.6-slim)
+      - buildah run "$container" -- apt-get update
+      - buildah run "$container" -- apt-get install -y build-essential git
+      - buildah commit --format docker "$container" "$MYTAG"
+      - buildah push "$MYTAG"
