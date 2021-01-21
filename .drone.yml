@@ -5,6 +5,7 @@ name: buildah
 steps:
   - name: build
     image: quay.io/containers/buildah
+    privileged: true
     commands:
       - export MYTAG="mytag"
       - export container=$(buildah from docker.io/python:3.6-slim)
