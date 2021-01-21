@@ -10,7 +10,7 @@ steps:
       - sed -i 's/v3\.13/edge/g' /etc/apk/repositories
       - echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
       - apk upgrade --update-cache --available
-      - apk add buildah skopeo
+      - apk add buildah skopeo runc
       - export MYTAG="mytag"
       - export container=$(buildah from docker.io/alpine:latest)
       - buildah run "$container" -- apk update
